@@ -12,10 +12,10 @@ public class LoginTest extends BaseTest {
     @Test
     public void validLoginTest() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.login("john.which@yahoo.com1", "1234");
+        loginPage.login("", "1234");
 
-        // For simplicity, assert that login redirects to the account page
-       // String currentUrl = driver.getCurrentUrl();
-       // Assert.assertTrue(currentUrl.contains("route=account/account"), "Login failed or URL mismatch");
+      //  For simplicity, assert that login redirects to the account page
+       String currentUrl = driver.getCurrentUrl();
+       Assert.assertTrue(currentUrl.contains("route=account/account"), "Login failed or URL mismatch");
     }
 }

@@ -1,7 +1,9 @@
 package com.example.Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 
 public class productPage {
@@ -25,6 +27,16 @@ public class productPage {
         enterSearchText(text);
         clickSearchButton();
     }       
+    public boolean isProductDisplayed(String productName) {
+    // Example using Selenium
+    try {
+        WebElement product = driver.findElement(By.xpath("//h2[text()='" + productName + "']"));
+        return product.isDisplayed();
+    } catch (NoSuchElementException e) {
+        return false;
+    }
+}
+
 
 
 }

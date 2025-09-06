@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import com.example.Pages.LoginPage;
 import com.example.Pages.productPage;
+import org.testng.Assert;
+
 
 public class searchProduct extends BaseTest     {
 
@@ -17,6 +19,7 @@ public class searchProduct extends BaseTest     {
         public void searchProductTest() {
             productPage productPageObj = new productPage(driver);
             productPageObj.searchProduct("MacBook");
+        Assert.assertTrue(productPageObj.isProductDisplayed("MacBooky"), "Product not found in search results");
+
         }           
-    
 }
