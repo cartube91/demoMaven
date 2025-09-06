@@ -1,0 +1,5 @@
+com/example/Pages/productPage.class
+com/example/tests/LoginTest.class
+com/example/tests/BaseTest.class
+com/example/Pages/LoginPage.class
+com/example/tests/searchProduct.class
