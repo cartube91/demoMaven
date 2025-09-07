@@ -13,34 +13,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: 17
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
-    - name: Cache Maven dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('demo/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('demo/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-    - name: Install dependencies
-      run: mvn install -DskipTests
-      working-directory: demo
+      - name: Install dependencies
+        run: mvn install -DskipTests
+        working-directory: demo
 
-    - name: Run Selenium tests
-      run: mvn test
-      working-directory: demo
+      - name: Install Chromium
+        run: sudo apt-get update && sudo apt-get install -y chromium-browser
 
-    - name: Upload Allure results
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-results
-        path: demo/target/allure-results
+      - name: Run Selenium tests (headless)
+        run: mvn test -Dheadless=true
+        working-directory: demo
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: demo/target/allure-results
